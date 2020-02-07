@@ -2,13 +2,12 @@ package com.twu.biblioteca;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class BibliotecaAppTest {
 
@@ -16,7 +15,7 @@ public class BibliotecaAppTest {
     private final PrintStream originalOut = System.out;
 
     @Before
-    public void setup() throws Exception {
+    public void setup() {
         System.setOut(new PrintStream(outputStream));
     }
 
@@ -27,7 +26,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testWelcomeMessageDisplayedOnStartUp() {
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
+        new BibliotecaApp();
 
         assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!\n", outputStream.toString());
     }
