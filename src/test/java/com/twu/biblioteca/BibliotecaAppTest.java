@@ -15,7 +15,7 @@ public class BibliotecaAppTest {
 
     BibliotecaApp biblioteca;
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
-    private final PrintStream originaloutput = System.out;
+    private final PrintStream originalOutput = System.out;
 
     @Before
     public void setup() {
@@ -25,7 +25,7 @@ public class BibliotecaAppTest {
 
     @After
     public void reset() {
-        System.setOut(originaloutput);
+        System.setOut(originalOutput);
     }
 
     @Test
@@ -48,7 +48,7 @@ public class BibliotecaAppTest {
     public void testShouldDisplayListOfBooksIfUserChoosesItInMenu() throws IOException {
         System.setIn(new ByteArrayInputStream("1".getBytes()));
         String menuOut = "Select an option:\n" +
-                          "1. List of books\n\n";
+                "1. List of books\n\n";
         String bookListString = "Harry Potter|JK Rowling|2000\n" +
                 "Da Vinci Code|Dan Brown|2003\n" +
                 "Brida|Paulo Coelho|1990\n";
@@ -60,7 +60,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldDisplayErrorMessageWhenInvalidOptionIsSelectedByUser() throws IOException {
-        System.setIn(new ByteArrayInputStream("2".getBytes()));
+        System.setIn(new ByteArrayInputStream("3".getBytes()));
         String menuOut = "Select an option:\n" +
                 "1. List of books\n\n";
         String errorMessage = "Please select a valid option!\n";
