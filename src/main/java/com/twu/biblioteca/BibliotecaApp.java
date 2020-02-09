@@ -32,11 +32,14 @@ public class BibliotecaApp {
 
     public void showMenu() throws IOException {
         System.out.println("Select an option:\n" +
-                "1. List of books\n");
+                "1. List of books\n" +
+                "2. Quit Application\n");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int option = Integer.parseInt(reader.readLine());
         if (option == 1) {
             System.out.println(getBookList());
+        } else if (option == 2) {
+            System.out.println("Quiting Application...");
         } else {
             System.out.println("Please select a valid option!");
         }
