@@ -13,4 +13,12 @@ public class BibliotecaAppTest {
 
         assertEquals(expectedMessage, biblioteca.getWelcomeMessage());
     }
+
+    @Test
+    public void testListOfBooksDisplayedAfterWelcomeMessage() {
+        BibliotecaApp biblioteca = new BibliotecaApp();
+        String expectedList = "Harry Potter\nDa Vinci Code\nBrida\n";
+
+        assertEquals(expectedList, biblioteca.getBookList());
+    }
 }
