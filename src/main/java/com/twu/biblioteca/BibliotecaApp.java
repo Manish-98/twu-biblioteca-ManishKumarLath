@@ -38,7 +38,7 @@ public class BibliotecaApp {
         if (option == 1) {
             System.out.println(getBookList());
         } else {
-            System.out.println("Enter valid option!");
+            System.out.println("Please select a valid option!");
         }
     }
 }

@@ -47,13 +47,24 @@ public class BibliotecaAppTest {
     @Test
     public void testShouldDisplayListOfBooksIfUserChoosesItInMenu() throws IOException {
         System.setIn(new ByteArrayInputStream("1".getBytes()));
-
         String menuOut = "Select an option:\n" +
                           "1. List of books\n\n";
         String bookListString = "Harry Potter|JK Rowling|2000\n" +
                 "Da Vinci Code|Dan Brown|2003\n" +
                 "Brida|Paulo Coelho|1990\n";
         String expectedOutput = menuOut + bookListString + "\n";
+        biblioteca.showMenu();
+
+        assertEquals(expectedOutput, output.toString());
+    }
+
+    @Test
+    public void testShouldDisplayErrorMessageWhenInvalidOptionIsSelectedByUser() throws IOException {
+        System.setIn(new ByteArrayInputStream("2".getBytes()));
+        String menuOut = "Select an option:\n" +
+                "1. List of books\n\n";
+        String errorMessage = "Please select a valid option!\n";
+        String expectedOutput = menuOut + errorMessage;
         biblioteca.showMenu();
 
         assertEquals(expectedOutput, output.toString());
