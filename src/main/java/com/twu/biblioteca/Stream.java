@@ -11,7 +11,7 @@ public class Stream {
         return reader.readLine();
     }
 
-    void output(String message){
+    void output(String message) {
         System.out.println(message);
     }
 }

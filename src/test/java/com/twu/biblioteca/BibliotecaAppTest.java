@@ -9,16 +9,15 @@ import static org.mockito.Mockito.*;
 
 public class BibliotecaAppTest {
 
-    private BibliotecaApp biblioteca;
-    private Stream stream;
-
     private final String menuOut;
     private final String welcomeMessage;
     private final String bookListString;
+    String noBookFoundMessage;
+    private BibliotecaApp biblioteca;
+    private Stream stream;
     private String invalidOptionMessage;
     private String quitMessage;
-    private String checkoutMessage;
-    String noBookFoundMessage;
+    private String successfulCheckoutMessage;
 
     public BibliotecaAppTest() {
         welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
@@ -33,8 +32,8 @@ public class BibliotecaAppTest {
 
         quitMessage = "Quiting Application...";
         invalidOptionMessage = "Please select a valid option!\n";
-        checkoutMessage = "Enter the name of the book to be checked out:\n";
         noBookFoundMessage = "Book Not Found\n";
+        successfulCheckoutMessage = "Thank you! Enjoy the book\n";
     }
 
     @Before
@@ -90,7 +89,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldNotQuitUnlessUserSelectsOptionToQuit() throws IOException {
-        when(stream.input()).thenReturn("1","2");
+        when(stream.input()).thenReturn("1", "2");
 
         biblioteca.start();
 
@@ -100,7 +99,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldAllowUsersToCheckoutBook() throws IOException {
-        when(stream.input()).thenReturn("3","Harry Potter","1","2");
+        when(stream.input()).thenReturn("3", "Harry Potter", "1", "2");
         String modifiedBookList = "Da Vinci Code|Dan Brown|2003\n" +
                 "Brida|Paulo Coelho|1990\n";
 
@@ -111,10 +110,10 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldNotAllowUsersToCheckoutBooksThatAreNotPresent() throws IOException {
-        when(stream.input()).thenReturn("3","XYZ","2");
+        when(stream.input()).thenReturn("3", "XYZ", "2");
 
         biblioteca.start();
 
-        verify(stream, times(1)).output(noBookFoundMessage);
+        verify(stream, times(0)).output(bookListString);
     }
 }
