@@ -46,11 +46,12 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void testShouldDisplayListOfBooksIfUserChoosesItInMenu() {
+    public void testShouldDisplayListOfBooksIfUserChoosesItInMenu() throws IOException {
         System.setIn(new ByteArrayInputStream("1\n2".getBytes()));
         String menuOut = "Select an option:\n" +
                 "1. List of books\n" +
-                "2. Quit Application\n\n";
+                "2. Quit Application\n" +
+                "3. Checkout Book\n\n";
         String bookListString = "Harry Potter|JK Rowling|2000\n" +
                 "Da Vinci Code|Dan Brown|2003\n" +
                 "Brida|Paulo Coelho|1990\n";
@@ -62,11 +63,12 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void testShouldDisplayErrorMessageWhenInvalidOptionIsSelectedByUser() {
-        System.setIn(new ByteArrayInputStream("3\n2".getBytes()));
+    public void testShouldDisplayErrorMessageWhenInvalidOptionIsSelectedByUser() throws IOException {
+        System.setIn(new ByteArrayInputStream("4\n2".getBytes()));
         String menuOut = "Select an option:\n" +
                 "1. List of books\n"+
-                "2. Quit Application\n\n";
+                "2. Quit Application\n" +
+                "3. Checkout Book\n\n";
         String errorMessage = "Please select a valid option!\n";
         String exitMessage = "Quiting Application...\n";
         String expectedOutput = menuOut + errorMessage + menuOut + exitMessage;
@@ -80,7 +82,8 @@ public class BibliotecaAppTest {
         System.setIn(new ByteArrayInputStream("2".getBytes()));
         String menuOut = "Select an option:\n" +
                 "1. List of books\n" +
-                "2. Quit Application\n\n";
+                "2. Quit Application\n" +
+                "3. Checkout Book\n\n";
         String exitMessage = "Quiting Application...\n";
         String expectedOutput = menuOut + exitMessage;
         biblioteca.showMenu();
@@ -89,15 +92,35 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void testShouldNotQuitUnlessUserSelectsOptionToQuit() {
+    public void testShouldNotQuitUnlessUserSelectsOptionToQuit() throws IOException {
         String testInputs = "4\n2";
         System.setIn(new ByteArrayInputStream(testInputs.getBytes()));
         String menuOut = "Select an option:\n" +
                 "1. List of books\n" +
-                "2. Quit Application\n\n";
+                "2. Quit Application\n" +
+                "3. Checkout Book\n\n";
         String errorMessage = "Please select a valid option!\n";
         String exitMessage = "Quiting Application...\n";
         String expectedMessage = menuOut + errorMessage + menuOut + exitMessage;
+
+        biblioteca.showMenu();
+
+        assertEquals(expectedMessage, output.toString());
+    }
+
+    @Test
+    public void testShouldAllowUsersToCheckoutBook() throws IOException {
+        String testInputs = "3\nHarry Potter\n1\n2";
+        System.setIn(new ByteArrayInputStream(testInputs.getBytes()));
+        String menuOut = "Select an option:\n" +
+                "1. List of books\n" +
+                "2. Quit Application\n" +
+                "3. Checkout Book\n\n";
+        String checkoutMessage = "Enter the name of the book to be checked out:\n";
+        String exitMessage = "Quiting Application...\n";
+        String bookListString = "Da Vinci Code|Dan Brown|2003\n" +
+                "Brida|Paulo Coelho|1990\n\n";
+        String expectedMessage = menuOut + checkoutMessage + menuOut + bookListString + menuOut + exitMessage;
 
         biblioteca.showMenu();
 

@@ -1,5 +1,8 @@
 package com.twu.biblioteca;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,23 +31,33 @@ public class BibliotecaApp {
         return String.valueOf(listOfBooks);
     }
 
-    public void showMenu() {
+    public void showMenu() throws IOException {
         int option;
-        Scanner scanner = new Scanner(System.in);
+        BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.out.println("Select an option:\n" +
                     "1. List of books\n" +
-                    "2. Quit Application\n");
-            option = scanner.nextInt();
+                    "2. Quit Application\n" +
+                    "3. Checkout Book\n");
+            option = Integer.parseInt(scanner.readLine());
             if (option == 1) {
                 System.out.println(getBookList());
             } else if (option == 2) {
                 System.out.println("Quiting Application...");
                 break;
+            } else if (option == 3){
+                System.out.println("Enter the name of the book to be checked out:");
+                String bookName = scanner.readLine();
+                remove(bookName);
             } else {
                 System.out.println("Please select a valid option!");
             }
         }
         scanner.close();
+    }
+
+    private void remove(String bookName) {
+        int indexOfBook = Book.getIndexByName(bookName, bookList);
+        bookList.remove(indexOfBook);
     }
 }
