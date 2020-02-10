@@ -10,7 +10,8 @@ public final class MessageStore {
         return "Select an option:\n" +
                 "1. List of books\n" +
                 "2. Quit Application\n" +
-                "3. Checkout Book\n";
+                "3. Checkout Book\n" +
+                "4. Return Book\n";
     }
 
     public static String getQuitMessage() {
@@ -38,4 +39,6 @@ public final class MessageStore {
     }
 
     public static String getSuccessfulReturnMessage() { return "Thank you for returning the book\n"; }
+
+    public static String getUnSuccessfulReturnMessage() { return "That is not a valid book to return\n"; }
 }

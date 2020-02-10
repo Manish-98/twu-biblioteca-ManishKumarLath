@@ -25,6 +25,7 @@ public class BibliotecaAppTest {
     private final String quitMessage;
     private final String successfulCheckoutMessage;
     private final String successfulReturnMessage;
+    private final String unSuccessfulReturnMessage;
     private BibliotecaApp biblioteca;
     private Stream stream;
 
@@ -44,6 +45,7 @@ public class BibliotecaAppTest {
         noBookFoundMessage = "Sorry, that book is not available\n";
         successfulCheckoutMessage = "Thank you! Enjoy the book\n";
         successfulReturnMessage = "Thank you for returning the book\n";
+        unSuccessfulReturnMessage = "That is not a valid book to return\n";
     }
 
     @Before
@@ -163,5 +165,13 @@ public class BibliotecaAppTest {
         biblioteca.start();
 
         verify(stream, times(1)).output(successfulReturnMessage);
+    }
+
+    @Test
+    public void testShouldNotifyUserOnUnSuccessfulBookReturn() throws IOException {
+        when(stream.input()).thenReturn("4", "Harry Potter", "2");
+        biblioteca.start();
+
+        verify(stream, times(1)).output(unSuccessfulReturnMessage);
     }
 }
