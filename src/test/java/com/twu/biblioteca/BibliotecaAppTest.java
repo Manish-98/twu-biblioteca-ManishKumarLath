@@ -7,6 +7,14 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.*;
 
+// TODO - BibliotecaApp has to be a god class
+// TODO - Test cases are neat
+// TODO - However all tests need to happen by verifications of side effects - which sucks
+// TODO - why this sucks - because every logic is verified through the top layer, so everything is coupled through the top layer.
+// TODO - lets change the options from 1,2,3.... to A,B,C - we are screwed.
+// TODO - should this change (1,2,3 -> A,B,C) have any effect on my confidence levels of whether checkout works properly or not
+// TODO - unfortunately, it does have effect - leads to failing tests.
+// TODO - everything is coupled to the user interactions, any change in user interactions changes everything.
 public class BibliotecaAppTest {
 
     private BibliotecaApp biblioteca;
@@ -121,8 +129,6 @@ public class BibliotecaAppTest {
     @Test
     public void testShouldNotifyUserAboutSuccessfulCheckOut() throws IOException {
         when(stream.input()).thenReturn("3", "Harry Potter", "1", "2");
-        String modifiedBookList = "Da Vinci Code|Dan Brown|2003\n" +
-                "Brida|Paulo Coelho|1990\n";
 
         biblioteca.start();
 

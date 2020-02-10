@@ -1,7 +1,5 @@
 package com.twu.biblioteca;
 
-import java.util.List;
-
 public class Book {
 
     private final String name;
@@ -15,12 +13,8 @@ public class Book {
         this.publishingYear = publishingYear;
     }
 
-    public static int getIndexByName(String bookName, List<Book> bookList) {
-        for (int index = 0; index < bookList.size(); ++index) {
-            if (bookList.get(index).name.equals(bookName))
-                return index;
-        }
-        return -1;
+    public boolean hasName(String bookName) {
+        return this.name.equals(bookName);
     }
 
     @Override
