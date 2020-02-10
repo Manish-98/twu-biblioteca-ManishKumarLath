@@ -61,6 +61,9 @@ public class BibliotecaApp {
 
         if (indexOfBook == -1) {
 
-        } else bookList.remove(indexOfBook);
+        } else {
+            bookList.remove(indexOfBook);
+            console.output(MessageStore.getSuccessfulCheckoutMessage());
+        }
     }
 }

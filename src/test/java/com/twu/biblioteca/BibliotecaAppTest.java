@@ -116,4 +116,15 @@ public class BibliotecaAppTest {
 
         verify(stream, times(0)).output(bookListString);
     }
+
+    @Test
+    public void testShouldNotifyUserAboutSuccessfulCheckOut() throws IOException {
+        when(stream.input()).thenReturn("3", "Harry Potter", "1", "2");
+        String modifiedBookList = "Da Vinci Code|Dan Brown|2003\n" +
+                "Brida|Paulo Coelho|1990\n";
+
+        biblioteca.start();
+
+        verify(stream, times(1)).output(successfulCheckoutMessage);
+    }
 }

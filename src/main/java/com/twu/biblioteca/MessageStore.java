@@ -24,4 +24,8 @@ public final class MessageStore {
     public static String getInvalidInputMessage() {
         return "Please select a valid option!\n";
     }
+
+    public static String getSuccessfulCheckoutMessage() {
+        return "Thank you! Enjoy the book\n";
+    }
 }
