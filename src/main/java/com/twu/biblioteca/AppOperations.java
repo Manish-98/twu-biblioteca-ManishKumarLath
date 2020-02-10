@@ -106,6 +106,7 @@ class ReturnBook implements AppOperations {
 
         if (book != null && book.isCheckedOut()) {
             book.checkIn();
+            console.output(MessageStore.getSuccessfulReturnMessage());
         }
     }
 

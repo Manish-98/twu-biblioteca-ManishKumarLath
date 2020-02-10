@@ -156,4 +156,12 @@ public class BibliotecaAppTest {
         verify(stream, times(1)).output(newBookList);
         verify(stream, times(1)).output(bookListString);
     }
+
+    @Test
+    public void testShouldNotifyUserOnSuccessfulBookReturn() throws IOException {
+        when(stream.input()).thenReturn("3", "Harry Potter", "4", "Harry Potter", "2");
+        biblioteca.start();
+
+        verify(stream, times(1)).output(successfulReturnMessage);
+    }
 }

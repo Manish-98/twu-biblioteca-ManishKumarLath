@@ -37,4 +37,5 @@ public final class MessageStore {
         return "Enter the name of the book to be returned:";
     }
 
+    public static String getSuccessfulReturnMessage() { return "Thank you for returning the book\n"; }
 }
