@@ -5,12 +5,14 @@ public class Book {
     private final String name;
     private final String author;
     private final int publishingYear;
+    private boolean checkedOut;
 
     public Book(String name, String author, int publishingYear) {
 
         this.name = name;
         this.author = author;
         this.publishingYear = publishingYear;
+        checkedOut = false;
     }
 
     public boolean hasName(String bookName) {
@@ -22,5 +24,17 @@ public class Book {
         return name + "|" +
                 author + "|" +
                 publishingYear + "\n";
+    }
+
+    public void checkout() {
+        this.checkedOut = true;
+    }
+
+    public boolean isCheckedOut() {
+        return checkedOut;
+    }
+
+    public void checkIn() {
+        checkedOut = false;
     }
 }

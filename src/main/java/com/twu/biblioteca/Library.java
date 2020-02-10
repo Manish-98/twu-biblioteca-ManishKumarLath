@@ -37,6 +37,8 @@ public class Library {
             operations = new QuitApplication(console);
         } else if (option == 3)
             operations = new CheckoutBook(console);
+        else if (option == 4)
+            operations = new ReturnBook(console);
         else
             operations = new InvalidOption(console);
 

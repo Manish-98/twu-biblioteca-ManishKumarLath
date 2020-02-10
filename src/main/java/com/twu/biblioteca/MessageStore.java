@@ -29,5 +29,12 @@ public final class MessageStore {
         return "Thank you! Enjoy the book\n";
     }
 
-    public static String getUnsuccessfulCheckoutMessage() { return "Sorry, that book is not available\n"; }
+    public static String getUnsuccessfulCheckoutMessage() {
+        return "Sorry, that book is not available\n";
+    }
+
+    public static String getReturnBookPrompt() {
+        return "Enter the name of the book to be returned:";
+    }
+
 }

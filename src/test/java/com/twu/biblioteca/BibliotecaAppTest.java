@@ -17,9 +17,6 @@ import static org.mockito.Mockito.*;
 // TODO - everything is coupled to the user interactions, any change in user interactions changes everything.
 public class BibliotecaAppTest {
 
-    private BibliotecaApp biblioteca;
-    private Stream stream;
-
     private final String menuOut;
     private final String welcomeMessage;
     private final String bookListString;
@@ -27,6 +24,9 @@ public class BibliotecaAppTest {
     private final String invalidOptionMessage;
     private final String quitMessage;
     private final String successfulCheckoutMessage;
+    private final String successfulReturnMessage;
+    private BibliotecaApp biblioteca;
+    private Stream stream;
 
     public BibliotecaAppTest() {
         welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
@@ -43,6 +43,7 @@ public class BibliotecaAppTest {
         invalidOptionMessage = "Please select a valid option!\n";
         noBookFoundMessage = "Sorry, that book is not available\n";
         successfulCheckoutMessage = "Thank you! Enjoy the book\n";
+        successfulReturnMessage = "Thank you for returning the book\n";
     }
 
     @Before
@@ -143,5 +144,16 @@ public class BibliotecaAppTest {
 
         verify(stream, times(0)).output(bookListString);
         verify(stream, times(1)).output(noBookFoundMessage);
+    }
+
+    @Test
+    public void testShouldLetUserReturnBook() throws IOException {
+        when(stream.input()).thenReturn("3", "Harry Potter", "1", "4", "Harry Potter", "1", "2");
+        String newBookList = "Da Vinci Code|Dan Brown|2003\n" +
+                "Brida|Paulo Coelho|1990\n";
+        biblioteca.start();
+
+        verify(stream, times(1)).output(newBookList);
+        verify(stream, times(1)).output(bookListString);
     }
 }

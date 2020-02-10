@@ -21,7 +21,8 @@ class GetListOfBook implements AppOperations {
     public void execute(Collection<Book> books) {
         StringBuilder bookListString = new StringBuilder();
         for (Book book : books) {
-            bookListString.append(book.toString());
+            if (!book.isCheckedOut())
+                bookListString.append(book.toString());
         }
         display(String.valueOf(bookListString));
     }
@@ -45,11 +46,10 @@ class CheckoutBook implements AppOperations {
         String bookInput = console.input();
         Book book = getBook(books, bookInput);
 
-        if (book != null) {
-            checkOutBook(books, book);
+        if (book != null && !book.isCheckedOut()) {
+            book.checkout();
             console.output(MessageStore.getSuccessfulCheckoutMessage());
-        }
-        else
+        } else
             console.output(MessageStore.getUnsuccessfulCheckoutMessage());
     }
 
@@ -59,13 +59,6 @@ class CheckoutBook implements AppOperations {
                 return currentBook;
         }
         return null;
-    }
-
-    private Collection<Book> checkOutBook(Collection<Book> books, Book book) {
-        if (book != null) {
-            books.remove(book);
-        }
-        return books;
     }
 }
 
@@ -94,5 +87,33 @@ class InvalidOption implements AppOperations {
     @Override
     public void execute(Collection<Book> books) {
         console.output(MessageStore.getInvalidInputMessage());
+    }
+}
+
+class ReturnBook implements AppOperations {
+
+    private final Stream console;
+
+    public ReturnBook(Stream console) {
+        this.console = console;
+    }
+
+    @Override
+    public void execute(Collection<Book> books) throws IOException {
+        console.output(MessageStore.getReturnBookPrompt());
+        String bookInput = console.input();
+        Book book = getBook(books, bookInput);
+
+        if (book != null && book.isCheckedOut()) {
+            book.checkIn();
+        }
+    }
+
+    private Book getBook(Collection<Book> books, String bookInput) {
+        for (Book currentBook : books) {
+            if (currentBook.hasName(bookInput))
+                return currentBook;
+        }
+        return null;
     }
 }
