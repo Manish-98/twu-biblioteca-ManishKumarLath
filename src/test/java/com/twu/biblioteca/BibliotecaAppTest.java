@@ -1,129 +1,120 @@
 package com.twu.biblioteca;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class BibliotecaAppTest {
 
-    BibliotecaApp biblioteca;
-    private final ByteArrayOutputStream output = new ByteArrayOutputStream();
-    private final PrintStream originalOutput = System.out;
+    private BibliotecaApp biblioteca;
+    private Stream stream;
 
-    private final String menuOut = "Select an option:\n" +
-            "1. List of books\n" +
-            "2. Quit Application\n" +
-            "3. Checkout Book\n\n";
+    private final String menuOut;
+    private final String welcomeMessage;
+    private final String bookListString;
+    private String invalidOptionMessage;
+    private String quitMessage;
+    private String checkoutMessage;
+    String noBookFoundMessage;
 
-    @Before
-    public void setup() {
-        biblioteca = new BibliotecaApp();
-        System.setOut(new PrintStream(output));
-    }
+    public BibliotecaAppTest() {
+        welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
+        menuOut = "Select an option:\n" +
+                "1. List of books\n" +
+                "2. Quit Application\n" +
+                "3. Checkout Book\n";
 
-    @After
-    public void reset() {
-        System.setOut(originalOutput);
-        System.setIn(System.in);
-    }
-
-    @Test
-    public void testWelcomeMessageDisplayedOnStartUp() {
-        String expectedMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-
-        assertEquals(expectedMessage, biblioteca.getWelcomeMessage());
-    }
-
-    @Test
-    public void testShouldReturnBookNameAuthorPublishingYearAfterWelcomeMessage() {
-        String bookList = "Harry Potter|JK Rowling|2000\n" +
+        bookListString = "Harry Potter|JK Rowling|2000\n" +
                 "Da Vinci Code|Dan Brown|2003\n" +
                 "Brida|Paulo Coelho|1990\n";
 
-        assertEquals(bookList, biblioteca.getBookList());
+        quitMessage = "Quiting Application...";
+        invalidOptionMessage = "Please select a valid option!\n";
+        checkoutMessage = "Enter the name of the book to be checked out:\n";
+        noBookFoundMessage = "Book Not Found\n";
+    }
+
+    @Before
+    public void setup() {
+        stream = mock(Stream.class);
+        biblioteca = new BibliotecaApp(stream);
+    }
+
+    @Test
+    public void testWelcomeMessageDisplayedOnStartUp() throws IOException {
+        when(stream.input()).thenReturn("2");
+        biblioteca.start();
+
+        verify(stream, times(1)).output(welcomeMessage);
     }
 
     @Test
     public void testShouldDisplayListOfBooksIfUserChoosesItInMenu() throws IOException {
-        System.setIn(new ByteArrayInputStream("1\n2".getBytes()));
+        when(stream.input()).thenReturn("1", "2");
 
-        String bookListString = "Harry Potter|JK Rowling|2000\n" +
-                "Da Vinci Code|Dan Brown|2003\n" +
-                "Brida|Paulo Coelho|1990\n";
-        String exitMessage = "Quiting Application...\n";
-        String expectedOutput = menuOut + bookListString + "\n" + menuOut + exitMessage;
-        biblioteca.showMenu();
+        biblioteca.start();
 
-        assertEquals(expectedOutput, output.toString());
+        verify(stream, times(1)).output(welcomeMessage);
+        verify(stream, times(1)).output(bookListString);
+    }
+
+    @Test
+    public void testShouldDisplayMenuAfterWelcomeMessage() throws IOException {
+        when(stream.input()).thenReturn("2");
+
+        biblioteca.start();
+
+        verify(stream, times(1)).output(menuOut);
     }
 
     @Test
     public void testShouldDisplayErrorMessageWhenInvalidOptionIsSelectedByUser() throws IOException {
-        System.setIn(new ByteArrayInputStream("4\n2".getBytes()));
-        String errorMessage = "Please select a valid option!\n";
-        String exitMessage = "Quiting Application...\n";
-        String expectedOutput = menuOut + errorMessage + menuOut + exitMessage;
-        biblioteca.showMenu();
+        when(stream.input()).thenReturn("5", "2");
 
-        assertEquals(expectedOutput, output.toString());
+        biblioteca.start();
+
+        verify(stream, times(1)).output(invalidOptionMessage);
     }
 
     @Test
     public void testShouldQuitApplicationWhenUserChoosesToQuit() throws IOException {
-        System.setIn(new ByteArrayInputStream("2".getBytes()));
-        String exitMessage = "Quiting Application...\n";
-        String expectedOutput = menuOut + exitMessage;
-        biblioteca.showMenu();
+        when(stream.input()).thenReturn("2");
 
-        assertEquals(expectedOutput, output.toString());
+        biblioteca.start();
+
+        verify(stream, times(1)).output(quitMessage);
     }
 
     @Test
     public void testShouldNotQuitUnlessUserSelectsOptionToQuit() throws IOException {
-        String testInputs = "4\n2";
-        System.setIn(new ByteArrayInputStream(testInputs.getBytes()));
-        String errorMessage = "Please select a valid option!\n";
-        String exitMessage = "Quiting Application...\n";
-        String expectedMessage = menuOut + errorMessage + menuOut + exitMessage;
+        when(stream.input()).thenReturn("1","2");
 
-        biblioteca.showMenu();
+        biblioteca.start();
 
-        assertEquals(expectedMessage, output.toString());
+        verify(stream, times(1)).output(bookListString);
+        verify(stream, times(1)).output(quitMessage);
     }
 
     @Test
     public void testShouldAllowUsersToCheckoutBook() throws IOException {
-        String testInputs = "3\nHarry Potter\n1\n2";
-        System.setIn(new ByteArrayInputStream(testInputs.getBytes()));
-        String checkoutMessage = "Enter the name of the book to be checked out:\n";
-        String exitMessage = "Quiting Application...\n";
-        String bookListString = "Da Vinci Code|Dan Brown|2003\n" +
-                "Brida|Paulo Coelho|1990\n\n";
-        String expectedMessage = menuOut + checkoutMessage + menuOut + bookListString + menuOut + exitMessage;
+        when(stream.input()).thenReturn("3","Harry Potter","1","2");
+        String modifiedBookList = "Da Vinci Code|Dan Brown|2003\n" +
+                "Brida|Paulo Coelho|1990\n";
 
-        biblioteca.showMenu();
+        biblioteca.start();
 
-        assertEquals(expectedMessage, output.toString());
+        verify(stream, times(1)).output(modifiedBookList);
     }
 
     @Test
     public void testShouldNotAllowUsersToCheckoutBooksThatAreNotPresent() throws IOException {
-        String testInputs = "3\nHarry Potters\n2";
-        System.setIn(new ByteArrayInputStream(testInputs.getBytes()));
-        String checkoutMessage = "Enter the name of the book to be checked out:\n";
-        String exitMessage = "Quiting Application...\n";
-        String noBookFoundMessage = "Book Not Found\n\n";
-        String expectedMessage = menuOut + checkoutMessage + noBookFoundMessage + menuOut + exitMessage;
+        when(stream.input()).thenReturn("3","XYZ","2");
 
-        biblioteca.showMenu();
+        biblioteca.start();
 
-        assertEquals(expectedMessage, output.toString());
+        verify(stream, times(1)).output(noBookFoundMessage);
     }
 }
