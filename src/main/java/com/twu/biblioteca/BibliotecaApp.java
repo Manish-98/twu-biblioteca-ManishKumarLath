@@ -34,23 +34,28 @@ public class BibliotecaApp {
     public void showMenu() throws IOException {
         int option;
         BufferedReader scanner = new BufferedReader(new InputStreamReader(System.in));
+        label:
         while (true) {
             System.out.println("Select an option:\n" +
                     "1. List of books\n" +
                     "2. Quit Application\n" +
                     "3. Checkout Book\n");
             option = Integer.parseInt(scanner.readLine());
-            if (option == 1) {
-                System.out.println(getBookList());
-            } else if (option == 2) {
-                System.out.println("Quiting Application...");
-                break;
-            } else if (option == 3){
-                System.out.println("Enter the name of the book to be checked out:");
-                String bookName = scanner.readLine();
-                remove(bookName);
-            } else {
-                System.out.println("Please select a valid option!");
+            switch (option) {
+                case 1:
+                    System.out.println(getBookList());
+                    break;
+                case 2:
+                    System.out.println("Quiting Application...");
+                    break label;
+                case 3:
+                    System.out.println("Enter the name of the book to be checked out:");
+                    String bookName = scanner.readLine();
+                    remove(bookName);
+                    break;
+                default:
+                    System.out.println("Please select a valid option!");
+                    break;
             }
         }
         scanner.close();
