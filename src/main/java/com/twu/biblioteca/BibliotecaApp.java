@@ -59,9 +59,8 @@ public class BibliotecaApp {
     private void remove(String bookName) {
         int indexOfBook = Book.getIndexByName(bookName, bookList);
 
-        if (indexOfBook == -1) {
-
-        } else {
+        if (indexOfBook == -1) console.output(MessageStore.getUnsuccessfulCheckoutMessage());
+        else {
             bookList.remove(indexOfBook);
             console.output(MessageStore.getSuccessfulCheckoutMessage());
         }

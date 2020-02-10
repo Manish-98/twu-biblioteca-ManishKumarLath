@@ -9,15 +9,16 @@ import static org.mockito.Mockito.*;
 
 public class BibliotecaAppTest {
 
+    private BibliotecaApp biblioteca;
+    private Stream stream;
+
     private final String menuOut;
     private final String welcomeMessage;
     private final String bookListString;
-    String noBookFoundMessage;
-    private BibliotecaApp biblioteca;
-    private Stream stream;
-    private String invalidOptionMessage;
-    private String quitMessage;
-    private String successfulCheckoutMessage;
+    private final String noBookFoundMessage;
+    private final String invalidOptionMessage;
+    private final String quitMessage;
+    private final String successfulCheckoutMessage;
 
     public BibliotecaAppTest() {
         welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
@@ -32,7 +33,7 @@ public class BibliotecaAppTest {
 
         quitMessage = "Quiting Application...";
         invalidOptionMessage = "Please select a valid option!\n";
-        noBookFoundMessage = "Book Not Found\n";
+        noBookFoundMessage = "Sorry, that book is not available\n";
         successfulCheckoutMessage = "Thank you! Enjoy the book\n";
     }
 
@@ -126,5 +127,15 @@ public class BibliotecaAppTest {
         biblioteca.start();
 
         verify(stream, times(1)).output(successfulCheckoutMessage);
+    }
+
+    @Test
+    public void testShouldNotifyUserAboutUnsuccessfulCheckOut() throws IOException {
+        when(stream.input()).thenReturn("3", "XYZ", "2");
+
+        biblioteca.start();
+
+        verify(stream, times(0)).output(bookListString);
+        verify(stream, times(1)).output(noBookFoundMessage);
     }
 }

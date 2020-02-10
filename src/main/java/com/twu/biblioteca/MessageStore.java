@@ -28,4 +28,6 @@ public final class MessageStore {
     public static String getSuccessfulCheckoutMessage() {
         return "Thank you! Enjoy the book\n";
     }
+
+    public static String getUnsuccessfulCheckoutMessage() { return "Sorry, that book is not available\n"; }
 }
