@@ -58,6 +58,9 @@ public class BibliotecaApp {
 
     private void remove(String bookName) {
         int indexOfBook = Book.getIndexByName(bookName, bookList);
-        bookList.remove(indexOfBook);
+        if (indexOfBook == -1)
+            System.out.println("Book Not Found\n");
+        else
+            bookList.remove(indexOfBook);
     }
 }

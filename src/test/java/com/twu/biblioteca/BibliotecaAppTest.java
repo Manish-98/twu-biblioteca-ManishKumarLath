@@ -126,4 +126,22 @@ public class BibliotecaAppTest {
 
         assertEquals(expectedMessage, output.toString());
     }
+
+    @Test
+    public void testShouldNotAllowUsersToCheckoutBooksThatAreNotPresent() throws IOException {
+        String testInputs = "3\nHarry Potters\n2";
+        System.setIn(new ByteArrayInputStream(testInputs.getBytes()));
+        String menuOut = "Select an option:\n" +
+                "1. List of books\n" +
+                "2. Quit Application\n" +
+                "3. Checkout Book\n\n";
+        String checkoutMessage = "Enter the name of the book to be checked out:\n";
+        String exitMessage = "Quiting Application...\n";
+        String noBookFoundMessage = "Book Not Found\n\n";
+        String expectedMessage = menuOut + checkoutMessage + noBookFoundMessage + menuOut + exitMessage;
+
+        biblioteca.showMenu();
+
+        assertEquals(expectedMessage, output.toString());
+    }
 }
