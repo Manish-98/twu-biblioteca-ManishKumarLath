@@ -23,12 +23,12 @@ public class Library {
         do {
             console.output(MessageStore.getMenu());
             int option = Integer.parseInt(console.input());
-            AppOperations operation = selectOperation(option);
+            BooksOperations operation = selectOperation(option);
             operation.execute(books);
         } while (!quitState);
     }
 
-    private AppOperations selectOperation(int option) {
+    private BooksOperations selectOperation(int option) {
         if (option == 1)
             return new GetListOfBook(console);
         else if (option == 2) {

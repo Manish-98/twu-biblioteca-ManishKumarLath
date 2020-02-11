@@ -34,7 +34,8 @@ public class BibliotecaAppTest {
         menuOut = "Select an option:\n" +
                 "1. List of books\n" +
                 "2. Quit Application\n" +
-                "3. Checkout Book\n";
+                "3. Checkout Book\n" +
+                "4. Return Book\n";
 
         bookListString = "Harry Potter|JK Rowling|2000\n" +
                 "Da Vinci Code|Dan Brown|2003\n" +
@@ -59,6 +60,7 @@ public class BibliotecaAppTest {
         when(stream.input()).thenReturn("2");
         biblioteca.start();
 
+
         verify(stream, times(1)).output(welcomeMessage);
     }
 
@@ -78,6 +80,7 @@ public class BibliotecaAppTest {
 
         biblioteca.start();
 
+        verify(stream, times(1)).output(welcomeMessage);
         verify(stream, times(1)).output(menuOut);
     }
 
@@ -174,4 +177,6 @@ public class BibliotecaAppTest {
 
         verify(stream, times(1)).output(unSuccessfulReturnMessage);
     }
+
+
 }
