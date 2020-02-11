@@ -23,26 +23,23 @@ public class Library {
         do {
             console.output(MessageStore.getMenu());
             int option = Integer.parseInt(console.input());
-            execute(option);
+            AppOperations operation = selectOperation(option);
+            operation.execute(books);
         } while (!quitState);
     }
 
-    private void execute(int option) throws IOException {
-        AppOperations operations;
-
+    private AppOperations selectOperation(int option) {
         if (option == 1)
-            operations = new GetListOfBook(console);
+            return new GetListOfBook(console);
         else if (option == 2) {
             quitState = true;
-            operations = new QuitApplication(console);
+            return new QuitApplication(console);
         } else if (option == 3)
-            operations = new CheckoutBook(console);
+            return new CheckoutBook(console);
         else if (option == 4)
-            operations = new ReturnBook(console);
+            return new ReturnBook(console);
         else
-            operations = new InvalidOption(console);
-
-        operations.execute(books);
+            return new InvalidOption(console);
     }
 
 }
