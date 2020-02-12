@@ -12,7 +12,8 @@ public final class MessageStore {
                 "2. Quit Application\n" +
                 "3. Checkout Book\n" +
                 "4. Return Book\n" +
-                "5. List of available movies\n";
+                "5. List of available movies\n" +
+                "6. Checkout movie\n";
     }
 
     public static String getQuitMessage() {

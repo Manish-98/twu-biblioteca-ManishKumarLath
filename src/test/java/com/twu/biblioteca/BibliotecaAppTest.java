@@ -29,7 +29,8 @@ public class BibliotecaAppTest {
                 "2. Quit Application\n" +
                 "3. Checkout Book\n" +
                 "4. Return Book\n" +
-                "5. List of available movies\n";
+                "5. List of available movies\n" +
+                "6. Checkout movie\n";
 
         bookListString = "Harry Potter|JK Rowling|2000\n" +
                 "Da Vinci Code|Dan Brown|2003\n" +
@@ -194,4 +195,7 @@ public class BibliotecaAppTest {
         verify(stream, times(1)).output(modifiedMovieList);
     }
 
+    @Test
+    public void testShould() {
+    }
 }
