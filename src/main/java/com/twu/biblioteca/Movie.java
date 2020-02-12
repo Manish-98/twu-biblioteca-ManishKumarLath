@@ -30,4 +30,9 @@ public class Movie extends LibraryItems{
     public void checkout() {
         this.isCheckedOut = true;
     }
+
+    @Override
+    public boolean hasName(String movieInput) {
+        return this.name.equals(movieInput);
+    }
 }

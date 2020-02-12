@@ -58,7 +58,7 @@ class CheckoutBook implements AppOperations {
         for (LibraryItems currentItem : books) {
             Book currentBook = (Book) currentItem;
             if (currentBook.hasName(bookInput))
-                return (Book) currentBook;
+                return currentBook;
         }
         return null;
     }
@@ -117,7 +117,7 @@ class ReturnBook implements AppOperations {
         for (LibraryItems currentItem : books) {
             Book currentBook = (Book) currentItem;
             if (currentBook.hasName(bookInput))
-                return (Book) currentBook;
+                return currentBook;
         }
         return null;
     }
@@ -136,12 +136,41 @@ class GetListOfMovies implements AppOperations {
         StringBuilder movieListString = new StringBuilder();
         for (LibraryItems item : movies) {
             Movie movie = (Movie) item;
-            movieListString.append(movie.toString());
+            if (!movie.isCheckedOut())
+                movieListString.append(movie.toString());
         }
         display(String.valueOf(movieListString));
     }
 
     private void display(String movies) {
         console.output(movies);
+    }
+}
+
+class CheckoutMovie implements AppOperations {
+
+    private final Stream console;
+
+    public CheckoutMovie(Stream console) {
+        this.console = console;
+    }
+
+    @Override
+    public void execute(Collection<LibraryItems> movies) throws IOException {
+        console.output(MessageStore.getCheckoutMoviePrompt());
+        String movieInput = console.input();
+        Movie movie = getMovie(movies, movieInput);
+
+        if (movie != null && !movie.isCheckedOut())
+            movie.checkout();
+    }
+
+    private Movie getMovie(Collection<LibraryItems> movies, String movieInput) {
+        for (LibraryItems currentItem : movies) {
+            Movie currentMovie = (Movie) currentItem;
+            if (currentMovie.hasName(movieInput))
+                return currentMovie;
+        }
+        return null;
     }
 }

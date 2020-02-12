@@ -183,4 +183,15 @@ public class BibliotecaAppTest {
 
         verify(stream, times(1)).output(movieListString);
     }
+
+
+    @Test
+    public void testShouldAllowUserToCheckoutMovieFromLibrary() throws IOException {
+        when(stream.input()).thenReturn("6", "Movie1", "5", "2");
+        String modifiedMovieList = "Movie2|2020|Director2|8.0\n";
+        biblioteca.start();
+
+        verify(stream, times(1)).output(modifiedMovieList);
+    }
+
 }

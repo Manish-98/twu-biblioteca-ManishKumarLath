@@ -42,4 +42,8 @@ public final class MessageStore {
     public static String getSuccessfulReturnMessage() { return "Thank you for returning the book\n"; }
 
     public static String getUnSuccessfulReturnMessage() { return "That is not a valid book to return\n"; }
+
+    public static String getCheckoutMoviePrompt() {
+        return "Enter the name of the movie to be checked out:";
+    }
 }

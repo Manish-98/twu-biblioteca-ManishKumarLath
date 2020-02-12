@@ -48,6 +48,8 @@ public class Library {
             return new ReturnBook(console);
         else if (option == 5)
             return new GetListOfMovies(console);
+        else if (option == 6)
+            return new CheckoutMovie(console);
         else
             return new InvalidOption(console);
     }
