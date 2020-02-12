@@ -36,7 +36,7 @@ public class BibliotecaAppTest {
                 "Brida|Paulo Coelho|1990\n";
 
         movieListString = "Movie1|2020|Director1|7.5\n" +
-                "Movie2|2020|Director2|9\n";
+                "Movie2|2020|Director2|8.0\n";
 
         quitMessage = "Quiting Application...";
         invalidOptionMessage = "Please select a valid option!\n";

@@ -132,8 +132,16 @@ class GetListOfMovies implements AppOperations {
     }
 
     @Override
-    public void execute(Collection<LibraryItems> books) throws IOException {
-        console.output("Movie1|2020|Director1|7.5\n" +
-                "Movie2|2020|Director2|9\n");
+    public void execute(Collection<LibraryItems> movies) {
+        StringBuilder movieListString = new StringBuilder();
+        for (LibraryItems item : movies) {
+            Movie movie = (Movie) item;
+            movieListString.append(movie.toString());
+        }
+        display(String.valueOf(movieListString));
+    }
+
+    private void display(String movies) {
+        console.output(movies);
     }
 }
