@@ -13,4 +13,11 @@ public class MovieTest {
 
         assertEquals(movie.toString(), movieDetails);
     }
+
+    @Test
+    public void testShouldReturnFalseIfMovieHasNotBeenCheckedOut() {
+        Movie movie = new Movie("Movie1", 2020, "Director1", 7.5);
+
+        assertFalse(movie.isCheckedOut());
+    }
 }
