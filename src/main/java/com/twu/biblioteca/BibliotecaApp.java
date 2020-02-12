@@ -12,7 +12,7 @@ public class BibliotecaApp {
     }
 
     //Public API
-    public void start() throws IOException { // TODO - procedural code. SRP, OCP, Tell don't ask.
+    public void start() throws IOException {
         console.output(MessageStore.getWelcomeMessage());
         Library library = new Library(console);
         library.process();

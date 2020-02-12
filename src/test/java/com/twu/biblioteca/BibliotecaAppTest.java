@@ -7,14 +7,6 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.*;
 
-// TODO - BibliotecaApp has to be a god class
-// TODO - Test cases are neat
-// TODO - However all tests need to happen by verifications of side effects - which sucks
-// TODO - why this sucks - because every logic is verified through the top layer, so everything is coupled through the top layer.
-// TODO - lets change the options from 1,2,3.... to A,B,C - we are screwed.
-// TODO - should this change (1,2,3 -> A,B,C) have any effect on my confidence levels of whether checkout works properly or not
-// TODO - unfortunately, it does have effect - leads to failing tests.
-// TODO - everything is coupled to the user interactions, any change in user interactions changes everything.
 public class BibliotecaAppTest {
 
     private final String menuOut;
@@ -28,6 +20,7 @@ public class BibliotecaAppTest {
     private final String unSuccessfulReturnMessage;
     private BibliotecaApp biblioteca;
     private Stream stream;
+    private String movieListString;
 
     public BibliotecaAppTest() {
         welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
@@ -35,11 +28,15 @@ public class BibliotecaAppTest {
                 "1. List of books\n" +
                 "2. Quit Application\n" +
                 "3. Checkout Book\n" +
-                "4. Return Book\n";
+                "4. Return Book\n" +
+                "5. List of available movies\n";
 
         bookListString = "Harry Potter|JK Rowling|2000\n" +
                 "Da Vinci Code|Dan Brown|2003\n" +
                 "Brida|Paulo Coelho|1990\n";
+
+        movieListString = "Movie1|2020|Director1|7.5\n" +
+                "Movie2|2020|Director2|9\n";
 
         quitMessage = "Quiting Application...";
         invalidOptionMessage = "Please select a valid option!\n";
@@ -86,7 +83,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldDisplayErrorMessageWhenInvalidOptionIsSelectedByUser() throws IOException {
-        when(stream.input()).thenReturn("5", "2");
+        when(stream.input()).thenReturn("10", "2");
 
         biblioteca.start();
 
@@ -178,5 +175,12 @@ public class BibliotecaAppTest {
         verify(stream, times(1)).output(unSuccessfulReturnMessage);
     }
 
+    @Test
+    public void testShouldDisplayListOfMovies() throws IOException {
+        when(stream.input()).thenReturn("5", "2");
 
+        biblioteca.start();
+
+        verify(stream, times(1)).output(movieListString);
+    }
 }

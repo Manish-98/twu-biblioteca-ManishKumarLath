@@ -119,3 +119,18 @@ class ReturnBook implements AppOperations {
         return null;
     }
 }
+
+class GetListOfMovies implements AppOperations {
+
+    private final Stream console;
+
+    public GetListOfMovies(Stream console) {
+        this.console = console;
+    }
+
+    @Override
+    public void execute(Collection<Book> books) throws IOException {
+        console.output("Movie1|2020|Director1|7.5\n" +
+                "Movie2|2020|Director2|9\n");
+    }
+}

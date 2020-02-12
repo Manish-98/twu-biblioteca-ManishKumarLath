@@ -38,9 +38,9 @@ public class Library {
             return new CheckoutBook(console);
         else if (option == 4)
             return new ReturnBook(console);
+        else if (option == 5)
+            return new GetListOfMovies(console);
         else
             return new InvalidOption(console);
     }
-
-
 }
