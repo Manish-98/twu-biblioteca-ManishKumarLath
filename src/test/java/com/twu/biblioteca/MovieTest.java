@@ -20,4 +20,13 @@ public class MovieTest {
 
         assertFalse(movie.isCheckedOut());
     }
+
+    @Test
+    public void testShouldSetCheckoutStatusOfMovieOnItBeingCheckedOut() {
+        Movie movie = new Movie("Movie1", 2020, "Director1", 7.5);
+
+        movie.checkout();
+
+        assertTrue(movie.isCheckedOut());
+    }
 }

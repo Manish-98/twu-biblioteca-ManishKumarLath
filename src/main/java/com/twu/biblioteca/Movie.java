@@ -23,6 +23,11 @@ public class Movie extends LibraryItems{
 
     @Override
     public boolean isCheckedOut() {
-        return false;
+        return isCheckedOut;
+    }
+
+    @Override
+    public void checkout() {
+        this.isCheckedOut = true;
     }
 }
