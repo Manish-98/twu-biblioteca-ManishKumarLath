@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public interface AppOperations {
 
-    void execute(Collection<Book> books) throws IOException;
+    void execute(Collection<LibraryItems> books) throws IOException;
 
 }
 
@@ -18,9 +18,10 @@ class GetListOfBooks implements AppOperations {
     }
 
     @Override
-    public void execute(Collection<Book> books) {
+    public void execute(Collection<LibraryItems> books) {
         StringBuilder bookListString = new StringBuilder();
-        for (Book book : books) {
+        for (LibraryItems item : books) {
+            Book book = (Book) item;
             if (!book.isCheckedOut())
                 bookListString.append(book.toString());
         }
@@ -41,7 +42,7 @@ class CheckoutBook implements AppOperations {
     }
 
     @Override
-    public void execute(Collection<Book> books) throws IOException {
+    public void execute(Collection<LibraryItems> books) throws IOException {
         console.output(MessageStore.getCheckoutPrompt());
         String bookInput = console.input();
         Book book = getBook(books, bookInput);
@@ -53,10 +54,11 @@ class CheckoutBook implements AppOperations {
             console.output(MessageStore.getUnsuccessfulCheckoutMessage());
     }
 
-    private Book getBook(Collection<Book> books, String bookInput) {
-        for (Book currentBook : books) {
+    private Book getBook(Collection<LibraryItems> books, String bookInput) {
+        for (LibraryItems currentItem : books) {
+            Book currentBook = (Book) currentItem;
             if (currentBook.hasName(bookInput))
-                return currentBook;
+                return (Book) currentBook;
         }
         return null;
     }
@@ -71,7 +73,7 @@ class QuitApplication implements AppOperations {
     }
 
     @Override
-    public void execute(Collection<Book> books) {
+    public void execute(Collection<LibraryItems> books) {
         console.output(MessageStore.getQuitMessage());
     }
 }
@@ -85,7 +87,7 @@ class InvalidOption implements AppOperations {
     }
 
     @Override
-    public void execute(Collection<Book> books) {
+    public void execute(Collection<LibraryItems> books) {
         console.output(MessageStore.getInvalidInputMessage());
     }
 }
@@ -99,7 +101,7 @@ class ReturnBook implements AppOperations {
     }
 
     @Override
-    public void execute(Collection<Book> books) throws IOException {
+    public void execute(Collection<LibraryItems> books) throws IOException {
         console.output(MessageStore.getReturnBookPrompt());
         String bookInput = console.input();
         Book book = getBook(books, bookInput);
@@ -111,10 +113,11 @@ class ReturnBook implements AppOperations {
             console.output(MessageStore.getUnSuccessfulReturnMessage());
     }
 
-    private Book getBook(Collection<Book> books, String bookInput) {
-        for (Book currentBook : books) {
+    private Book getBook(Collection<LibraryItems> books, String bookInput) {
+        for (LibraryItems currentItem : books) {
+            Book currentBook = (Book) currentItem;
             if (currentBook.hasName(bookInput))
-                return currentBook;
+                return (Book) currentBook;
         }
         return null;
     }
@@ -129,7 +132,7 @@ class GetListOfMovies implements AppOperations {
     }
 
     @Override
-    public void execute(Collection<Book> books) throws IOException {
+    public void execute(Collection<LibraryItems> books) throws IOException {
         console.output("Movie1|2020|Director1|7.5\n" +
                 "Movie2|2020|Director2|9\n");
     }

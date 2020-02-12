@@ -8,7 +8,7 @@ import java.util.Collection;
 public class Library {
 
     private final Stream console;
-    private Collection<Book> books;
+    private Collection<LibraryItems> books;
     private boolean quitState;
 
     public Library(Stream console) {

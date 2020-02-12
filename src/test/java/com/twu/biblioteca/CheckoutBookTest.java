@@ -19,7 +19,7 @@ public class CheckoutBookTest {
         Book bookOne = new Book("Book1", "Author1", 2020);
         Book bookTwo = new Book("Book2", "Author2", 2020);
         Book bookThree = new Book("Book3", "Author3", 2020);
-        Collection<Book> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo, bookThree));
+        Collection<LibraryItems> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo, bookThree));
         when(console.input()).thenReturn("Book1");
         CheckoutBook checkoutBook = new CheckoutBook(console);
 
@@ -35,7 +35,7 @@ public class CheckoutBookTest {
     public void testShouldNotCheckOutBookNotPresentInLibrary() throws IOException {
         Stream console = mock(Stream.class);
         Book bookOne = new Book("Book1", "Author1", 2020);
-        Collection<Book> books = new ArrayList<>(Collections.singletonList(bookOne));
+        Collection<LibraryItems> books = new ArrayList<>(Collections.singletonList(bookOne));
         CheckoutBook checkoutBook = new CheckoutBook(console);
         when(console.input()).thenReturn("Book2");
 
