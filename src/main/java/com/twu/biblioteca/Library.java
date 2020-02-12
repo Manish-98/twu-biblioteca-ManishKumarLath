@@ -23,14 +23,14 @@ public class Library {
         do {
             console.output(MessageStore.getMenu());
             int option = Integer.parseInt(console.input());
-            BooksOperations operation = selectOperation(option);
+            AppOperations operation = selectOperation(option);
             operation.execute(books);
         } while (!quitState);
     }
 
-    private BooksOperations selectOperation(int option) {
+    private AppOperations selectOperation(int option) {
         if (option == 1)
-            return new GetListOfBook(console);
+            return new GetListOfBooks(console);
         else if (option == 2) {
             quitState = true;
             return new QuitApplication(console);
@@ -41,5 +41,6 @@ public class Library {
         else
             return new InvalidOption(console);
     }
+
 
 }

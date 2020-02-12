@@ -3,17 +3,17 @@ package com.twu.biblioteca;
 import java.io.IOException;
 import java.util.Collection;
 
-public interface BooksOperations {
+public interface AppOperations {
 
     void execute(Collection<Book> books) throws IOException;
 
 }
 
-class GetListOfBook implements BooksOperations {
+class GetListOfBooks implements AppOperations {
 
     private final Stream console;
 
-    public GetListOfBook(Stream console) {
+    public GetListOfBooks(Stream console) {
         this.console = console;
     }
 
@@ -32,7 +32,7 @@ class GetListOfBook implements BooksOperations {
     }
 }
 
-class CheckoutBook implements BooksOperations {
+class CheckoutBook implements AppOperations {
 
     private final Stream console;
 
@@ -62,7 +62,7 @@ class CheckoutBook implements BooksOperations {
     }
 }
 
-class QuitApplication implements BooksOperations {
+class QuitApplication implements AppOperations {
 
     private final Stream console;
 
@@ -76,7 +76,7 @@ class QuitApplication implements BooksOperations {
     }
 }
 
-class InvalidOption implements BooksOperations {
+class InvalidOption implements AppOperations {
 
     private final Stream console;
 
@@ -90,7 +90,7 @@ class InvalidOption implements BooksOperations {
     }
 }
 
-class ReturnBook implements BooksOperations {
+class ReturnBook implements AppOperations {
 
     private final Stream console;
 
