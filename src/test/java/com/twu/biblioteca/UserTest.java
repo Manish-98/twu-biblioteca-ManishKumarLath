@@ -10,6 +10,13 @@ public class UserTest {
     public void testShouldReturnTrueIfPasswordEnteredIsCorrect() {
         User user = new User("123-1234", "qwerty");
 
-        assertTrue(user.isPasswordCorrect());
+        assertTrue(user.isPasswordCorrect("qwerty"));
+    }
+
+    @Test
+    public void testShouldReturnFalseIfPasswordEnteredIsIncorrect() {
+        User user = new User("123-1234", "qwerty");
+
+        assertFalse(user.isPasswordCorrect("asdfg"));
     }
 }

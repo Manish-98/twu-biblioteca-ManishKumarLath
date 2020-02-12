@@ -1,7 +1,5 @@
 package com.twu.biblioteca;
 
-import java.util.Objects;
-
 public class User {
     private String id;
     private String password;
@@ -11,7 +9,7 @@ public class User {
         this.password = password;
     }
 
-    public boolean isPasswordCorrect() {
-        return true;
+    public boolean isPasswordCorrect(String password) {
+        return this.password.equals(password);
     }
 }
