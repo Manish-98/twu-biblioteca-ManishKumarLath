@@ -33,9 +33,8 @@ public class GetListOfBooksTest {
         Book bookTwo = new Book("Book2", "Author2", 2020);
         Book bookThree = new Book("Book3", "Author3", 2020);
         Collection<Book> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo, bookThree));
-        CheckoutBook checkoutBook = new CheckoutBook(console);
         when(console.input()).thenReturn("Book3");
-        checkoutBook.execute(books);
+        bookThree.checkout();
         GetListOfBooks getListOfBooks = new GetListOfBooks(console);
 
         getListOfBooks.execute(books);
