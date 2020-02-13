@@ -112,7 +112,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldAllowUsersToCheckoutBook() throws IOException {
-        when(stream.input()).thenReturn("3", "Harry Potter", "1", "2");
+        when(stream.input()).thenReturn("7", "123-1234", "qwerty", "3", "Harry Potter", "1", "2");
         String modifiedBookList = "Da Vinci Code|Dan Brown|2003\n" +
                 "Brida|Paulo Coelho|1990\n";
 
@@ -123,7 +123,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldNotAllowUsersToCheckoutBooksThatAreNotPresent() throws IOException {
-        when(stream.input()).thenReturn("3", "XYZ", "2");
+        when(stream.input()).thenReturn("7", "123-1234", "qwerty", "3", "XYZ", "2");
 
         biblioteca.start();
 
@@ -132,7 +132,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldNotifyUserAboutSuccessfulCheckOut() throws IOException {
-        when(stream.input()).thenReturn("3", "Harry Potter", "1", "2");
+        when(stream.input()).thenReturn("7", "123-1234", "qwerty", "3", "Harry Potter", "1", "2");
 
         biblioteca.start();
 
@@ -141,7 +141,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldNotifyUserAboutUnsuccessfulCheckOut() throws IOException {
-        when(stream.input()).thenReturn("3", "XYZ", "2");
+        when(stream.input()).thenReturn( "7", "123-1234", "qwerty", "3", "XYZ", "2");
 
         biblioteca.start();
 
@@ -151,7 +151,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldLetUserReturnBook() throws IOException {
-        when(stream.input()).thenReturn("3", "Harry Potter", "1", "4", "Harry Potter", "1", "2");
+        when(stream.input()).thenReturn("7", "123-1234", "qwerty", "3", "Harry Potter", "1", "4", "Harry Potter", "1", "2");
         String newBookList = "Da Vinci Code|Dan Brown|2003\n" +
                 "Brida|Paulo Coelho|1990\n";
         biblioteca.start();
@@ -162,7 +162,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldNotifyUserOnSuccessfulBookReturn() throws IOException {
-        when(stream.input()).thenReturn("3", "Harry Potter", "4", "Harry Potter", "2");
+        when(stream.input()).thenReturn("7", "123-1234", "qwerty", "3","Harry Potter", "4", "Harry Potter", "2");
         biblioteca.start();
 
         verify(stream, times(1)).output(successfulReturnMessage);
@@ -170,7 +170,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testShouldNotifyUserOnUnSuccessfulBookReturn() throws IOException {
-        when(stream.input()).thenReturn("4", "Harry Potter", "2");
+        when(stream.input()).thenReturn("7", "123-1234", "qwerty", "4", "Harry Potter", "2");
         biblioteca.start();
 
         verify(stream, times(1)).output(unSuccessfulReturnMessage);
@@ -195,7 +195,4 @@ public class BibliotecaAppTest {
         verify(stream, times(1)).output(modifiedMovieList);
     }
 
-    @Test
-    public void testShould() {
-    }
 }
