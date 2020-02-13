@@ -21,9 +21,9 @@ public class CheckoutMovieTest {
         Movie movieTwo = new Movie("Movie2", 2020, "Director2", 7.5);
         Collection<LibraryItems> movies = new ArrayList<>(Arrays.asList(movieOne, movieTwo));
         when(console.input()).thenReturn("Movie1");
-        CheckoutMovie checkoutMovie = new CheckoutMovie(console);
+        CheckoutMovie checkoutMovie = new CheckoutMovie(console, movies);
 
-        checkoutMovie.execute(movies);
+        checkoutMovie.execute();
 
         assertTrue(movieOne.isCheckedOut());
         assertFalse(movieTwo.isCheckedOut());
@@ -35,9 +35,9 @@ public class CheckoutMovieTest {
         Movie movieOne = new Movie("Movie1", 2020, "Director1", 7.5);
         Collection<LibraryItems> movies = new ArrayList<>(Collections.singletonList(movieOne));
         when(console.input()).thenReturn("Movie2");
-        CheckoutMovie checkoutMovie = new CheckoutMovie(console);
+        CheckoutMovie checkoutMovie = new CheckoutMovie(console, movies);
 
-        checkoutMovie.execute(movies);
+        checkoutMovie.execute();
 
         assertFalse(movieOne.isCheckedOut());
     }

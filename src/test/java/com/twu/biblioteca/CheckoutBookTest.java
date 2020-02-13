@@ -21,9 +21,9 @@ public class CheckoutBookTest {
         Book bookThree = new Book("Book3", "Author3", 2020);
         Collection<LibraryItems> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo, bookThree));
         when(console.input()).thenReturn("Book1");
-        CheckoutBook checkoutBook = new CheckoutBook(console);
+        CheckoutBook checkoutBook = new CheckoutBook(console, books);
 
-        checkoutBook.execute(books);
+        checkoutBook.execute();
 
         assertTrue(bookOne.isCheckedOut());
         assertFalse(bookTwo.isCheckedOut());
@@ -36,10 +36,10 @@ public class CheckoutBookTest {
         Stream console = mock(Stream.class);
         Book bookOne = new Book("Book1", "Author1", 2020);
         Collection<LibraryItems> books = new ArrayList<>(Collections.singletonList(bookOne));
-        CheckoutBook checkoutBook = new CheckoutBook(console);
+        CheckoutBook checkoutBook = new CheckoutBook(console, books);
         when(console.input()).thenReturn("Book2");
 
-        checkoutBook.execute(books);
+        checkoutBook.execute();
 
         assertFalse(bookOne.isCheckedOut());
     }

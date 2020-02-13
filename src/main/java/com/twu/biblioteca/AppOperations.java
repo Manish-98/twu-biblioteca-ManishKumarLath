@@ -5,20 +5,22 @@ import java.util.Collection;
 
 public interface AppOperations {
 
-    void execute(Collection<LibraryItems> books) throws IOException;
+    void execute() throws IOException;
 
 }
 
 class GetListOfBooks implements AppOperations {
 
     private final Stream console;
+    private Collection<LibraryItems> books;
 
-    public GetListOfBooks(Stream console) {
+    public GetListOfBooks(Stream console, Collection<LibraryItems> books) {
         this.console = console;
+        this.books = books;
     }
 
     @Override
-    public void execute(Collection<LibraryItems> books) {
+    public void execute() {
         StringBuilder bookListString = new StringBuilder();
         for (LibraryItems item : books) {
             Book book = (Book) item;
@@ -36,13 +38,15 @@ class GetListOfBooks implements AppOperations {
 class CheckoutBook implements AppOperations {
 
     private final Stream console;
+    private Collection<LibraryItems> books;
 
-    public CheckoutBook(Stream console) {
+    public CheckoutBook(Stream console, Collection<LibraryItems> books) {
         this.console = console;
+        this.books = books;
     }
 
     @Override
-    public void execute(Collection<LibraryItems> books) throws IOException {
+    public void execute() throws IOException {
         console.output(MessageStore.getCheckoutPrompt());
         String bookInput = console.input();
         Book book = getBook(books, bookInput);
@@ -73,7 +77,7 @@ class QuitApplication implements AppOperations {
     }
 
     @Override
-    public void execute(Collection<LibraryItems> books) {
+    public void execute() {
         console.output(MessageStore.getQuitMessage());
     }
 }
@@ -87,7 +91,7 @@ class InvalidOption implements AppOperations {
     }
 
     @Override
-    public void execute(Collection<LibraryItems> books) {
+    public void execute() {
         console.output(MessageStore.getInvalidInputMessage());
     }
 }
@@ -95,13 +99,15 @@ class InvalidOption implements AppOperations {
 class ReturnBook implements AppOperations {
 
     private final Stream console;
+    private Collection<LibraryItems> books;
 
-    public ReturnBook(Stream console) {
+    public ReturnBook(Stream console, Collection<LibraryItems> books) {
         this.console = console;
+        this.books = books;
     }
 
     @Override
-    public void execute(Collection<LibraryItems> books) throws IOException {
+    public void execute() throws IOException {
         console.output(MessageStore.getReturnBookPrompt());
         String bookInput = console.input();
         Book book = getBook(books, bookInput);
@@ -126,13 +132,15 @@ class ReturnBook implements AppOperations {
 class GetListOfMovies implements AppOperations {
 
     private final Stream console;
+    private Collection<LibraryItems> movies;
 
-    public GetListOfMovies(Stream console) {
+    public GetListOfMovies(Stream console, Collection<LibraryItems> movies) {
         this.console = console;
+        this.movies = movies;
     }
 
     @Override
-    public void execute(Collection<LibraryItems> movies) {
+    public void execute() {
         StringBuilder movieListString = new StringBuilder();
         for (LibraryItems item : movies) {
             Movie movie = (Movie) item;
@@ -150,13 +158,15 @@ class GetListOfMovies implements AppOperations {
 class CheckoutMovie implements AppOperations {
 
     private final Stream console;
+    private Collection<LibraryItems> movies;
 
-    public CheckoutMovie(Stream console) {
+    public CheckoutMovie(Stream console, Collection<LibraryItems> movies) {
         this.console = console;
+        this.movies = movies;
     }
 
     @Override
-    public void execute(Collection<LibraryItems> movies) throws IOException {
+    public void execute() throws IOException {
         console.output(MessageStore.getCheckoutMoviePrompt());
         String movieInput = console.input();
         Movie movie = getMovie(movies, movieInput);

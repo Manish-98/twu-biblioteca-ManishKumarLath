@@ -21,9 +21,9 @@ public class ReturnBookTest {
         Collection<LibraryItems> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo));
         bookOne.checkout();
         when(console.input()).thenReturn("Book1");
-        ReturnBook returnBook = new ReturnBook(console);
+        ReturnBook returnBook = new ReturnBook(console, books);
 
-        returnBook.execute(books);
+        returnBook.execute();
 
         assertFalse(bookOne.isCheckedOut());
     }
@@ -36,9 +36,9 @@ public class ReturnBookTest {
         Collection<LibraryItems> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo));
         bookOne.checkout();
         when(console.input()).thenReturn("Book3");
-        ReturnBook returnBook = new ReturnBook(console);
+        ReturnBook returnBook = new ReturnBook(console, books);
 
-        returnBook.execute(books);
+        returnBook.execute();
 
         assertTrue(bookOne.isCheckedOut());
         assertFalse(bookTwo.isCheckedOut());

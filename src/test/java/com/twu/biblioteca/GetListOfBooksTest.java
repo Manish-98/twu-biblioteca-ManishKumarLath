@@ -17,9 +17,9 @@ public class GetListOfBooksTest {
         Book bookOne = new Book("Book1", "Author1", 2020);
         Book bookTwo = new Book("Book2", "Author2", 2020);
         Collection<LibraryItems> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo));
-        GetListOfBooks getListOfBooks = new GetListOfBooks(console);
+        GetListOfBooks getListOfBooks = new GetListOfBooks(console, books);
 
-        getListOfBooks.execute(books);
+        getListOfBooks.execute();
 
         verify(console, times(1)).output("Book1|Author1|2020\n" +
                 "Book2|Author2|2020\n");
@@ -35,9 +35,9 @@ public class GetListOfBooksTest {
         Collection<LibraryItems> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo, bookThree));
         when(console.input()).thenReturn("Book3");
         bookThree.checkout();
-        GetListOfBooks getListOfBooks = new GetListOfBooks(console);
+        GetListOfBooks getListOfBooks = new GetListOfBooks(console, books);
 
-        getListOfBooks.execute(books);
+        getListOfBooks.execute();
 
         verify(console, times(1)).output("Book1|Author1|2020\n" +
                 "Book2|Author2|2020\n");

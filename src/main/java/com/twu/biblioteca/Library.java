@@ -10,6 +10,7 @@ public class Library {
     private final Stream console;
     private Collection<LibraryItems> books;
     private Collection<LibraryItems> movies;
+    private Collection<User> users;
     private boolean quitState;
 
     public Library(Stream console) {
@@ -22,6 +23,9 @@ public class Library {
 
         movies = new ArrayList<>(Arrays.asList(new Movie("Movie1", 2020, "Director1", 7.5),
                 new Movie("Movie2", 2020, "Director2", 8)));
+
+        users = new ArrayList<>(Arrays.asList(new User("123-1234", "qwerty"), new User("123-1235", "qwerty")));
+
     }
 
     public void process() throws IOException {
@@ -29,27 +33,24 @@ public class Library {
             console.output(MessageStore.getMenu());
             int option = Integer.parseInt(console.input());
             AppOperations operation = selectOperation(option);
-            if (option < 5)
-                operation.execute(books);
-            else
-                operation.execute(movies);
+            operation.execute();
         } while (!quitState);
     }
 
     private AppOperations selectOperation(int option) {
         if (option == 1)
-            return new GetListOfBooks(console);
+            return new GetListOfBooks(console, books);
         else if (option == 2) {
             quitState = true;
             return new QuitApplication(console);
         } else if (option == 3)
-            return new CheckoutBook(console);
+            return new CheckoutBook(console, books);
         else if (option == 4)
-            return new ReturnBook(console);
+            return new ReturnBook(console, books);
         else if (option == 5)
-            return new GetListOfMovies(console);
+            return new GetListOfMovies(console, movies);
         else if (option == 6)
-            return new CheckoutMovie(console);
+            return new CheckoutMovie(console, movies);
         else
             return new InvalidOption(console);
     }

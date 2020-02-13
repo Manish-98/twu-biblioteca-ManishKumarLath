@@ -13,7 +13,7 @@ public class QuitApplicationTest {
         Stream console = mock(Stream.class);
         QuitApplication quitApplication = new QuitApplication(console);
 
-        quitApplication.execute(new ArrayList<>());
+        quitApplication.execute();
 
         verify(console, times(1)).output("Quiting Application...");
     }

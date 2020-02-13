@@ -13,7 +13,7 @@ public class InvalidOptionTest {
         Stream console = mock(Stream.class);
         InvalidOption invalidOption = new InvalidOption(console);
 
-        invalidOption.execute(new ArrayList<>());
+        invalidOption.execute();
 
         verify(console, times(1)).output("Please select a valid option!\n");
     }
