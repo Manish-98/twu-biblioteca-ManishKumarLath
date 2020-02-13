@@ -49,7 +49,7 @@ public final class MessageStore {
     }
 
     public static String getLoginRequest() {
-        return "Please Log into your profile to access this feature...\n";
+        return "Please Log into your profile to access this feature... (option 7)\n";
     }
 
     public static String getIdPrompt() {

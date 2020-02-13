@@ -54,7 +54,6 @@ class CheckoutBook implements AppOperations {
             return;
         }
 
-
         console.output(MessageStore.getCheckoutPrompt());
         String bookInput = console.input();
         Book book = getBook(books, bookInput);

@@ -35,8 +35,14 @@ public class Library {
         do {
             console.output(MessageStore.getMenu());
             int option = Integer.parseInt(console.input());
-            AppOperations operation = selectOperation(option);
-            operation.execute();
+
+            if (option == 7) {
+                Validate validate = new Validate(console, users);
+                currentUser = validate.getUser();
+            } else {
+                AppOperations operation = selectOperation(option);
+                operation.execute();
+            }
         } while (!quitState);
     }
 
