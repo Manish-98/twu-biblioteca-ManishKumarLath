@@ -14,14 +14,15 @@ import static org.mockito.Mockito.*;
 public class CheckoutBookTest {
 
     @Test
-    public void testShouldCheckOutBookRequestedByUser() throws IOException {
+    public void testShouldCheckOutBookRequestedByLoggedInUser() throws IOException {
         Stream console = mock(Stream.class);
         Book bookOne = new Book("Book1", "Author1", 2020);
         Book bookTwo = new Book("Book2", "Author2", 2020);
         Book bookThree = new Book("Book3", "Author3", 2020);
+        User currentUser = new User("123-1234", "qwerty");
         Collection<LibraryItems> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo, bookThree));
         when(console.input()).thenReturn("Book1");
-        CheckoutBook checkoutBook = new CheckoutBook(console, books);
+        CheckoutBook checkoutBook = new CheckoutBook(console, books, currentUser);
 
         checkoutBook.execute();
 
@@ -36,7 +37,8 @@ public class CheckoutBookTest {
         Stream console = mock(Stream.class);
         Book bookOne = new Book("Book1", "Author1", 2020);
         Collection<LibraryItems> books = new ArrayList<>(Collections.singletonList(bookOne));
-        CheckoutBook checkoutBook = new CheckoutBook(console, books);
+        User currentUser = new User("123-1234", "qwerty");
+        CheckoutBook checkoutBook = new CheckoutBook(console, books, currentUser);
         when(console.input()).thenReturn("Book2");
 
         checkoutBook.execute();

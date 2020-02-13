@@ -39,10 +39,12 @@ class CheckoutBook implements AppOperations {
 
     private final Stream console;
     private Collection<LibraryItems> books;
+    private User currentUser;
 
-    public CheckoutBook(Stream console, Collection<LibraryItems> books) {
+    public CheckoutBook(Stream console, Collection<LibraryItems> books, User currentUser) {
         this.console = console;
         this.books = books;
+        this.currentUser = currentUser;
     }
 
     @Override

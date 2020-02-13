@@ -12,6 +12,7 @@ public class Library {
     private Collection<LibraryItems> movies;
     private Collection<User> users;
     private boolean quitState;
+    private User currentUser;
 
     public Library(Stream console) {
         this.console = console;
@@ -25,6 +26,8 @@ public class Library {
                 new Movie("Movie2", 2020, "Director2", 8)));
 
         users = new ArrayList<>(Arrays.asList(new User("123-1234", "qwerty"), new User("123-1235", "qwerty")));
+
+        currentUser = new User("XXX-XXXX", "X");
 
     }
 
@@ -44,7 +47,7 @@ public class Library {
             quitState = true;
             return new QuitApplication(console);
         } else if (option == 3)
-            return new CheckoutBook(console, books);
+            return new CheckoutBook(console, books, currentUser);
         else if (option == 4)
             return new ReturnBook(console, books);
         else if (option == 5)
