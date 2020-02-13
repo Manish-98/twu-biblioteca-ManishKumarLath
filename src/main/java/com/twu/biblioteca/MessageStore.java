@@ -47,4 +47,8 @@ public final class MessageStore {
     public static String getCheckoutMoviePrompt() {
         return "Enter the name of the movie to be checked out:";
     }
+
+    public static String getLoginRequest() {
+        return "Please Log into your profile to access this feature...\n";
+    }
 }

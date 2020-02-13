@@ -45,4 +45,23 @@ public class CheckoutBookTest {
 
         assertFalse(bookOne.isCheckedOut());
     }
+
+    @Test
+    public void testShouldNotCheckOutBookRequestedByGuestUser() throws IOException {
+        Stream console = mock(Stream.class);
+        Book bookOne = new Book("Book1", "Author1", 2020);
+        Book bookTwo = new Book("Book2", "Author2", 2020);
+        Book bookThree = new Book("Book3", "Author3", 2020);
+        User currentUser = new User("XXX-XXXX", "X");
+        Collection<LibraryItems> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo, bookThree));
+        when(console.input()).thenReturn("Book1");
+        CheckoutBook checkoutBook = new CheckoutBook(console, books, currentUser);
+
+        checkoutBook.execute();
+
+        assertFalse(bookOne.isCheckedOut());
+        assertFalse(bookTwo.isCheckedOut());
+        assertFalse(bookThree.isCheckedOut());
+
+    }
 }

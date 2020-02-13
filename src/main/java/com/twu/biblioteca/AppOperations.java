@@ -49,6 +49,12 @@ class CheckoutBook implements AppOperations {
 
     @Override
     public void execute() throws IOException {
+        if (currentUser.equals(new User("XXX-XXXX", "X"))) {
+            console.output(MessageStore.getLoginRequest());
+            return;
+        }
+
+
         console.output(MessageStore.getCheckoutPrompt());
         String bookInput = console.input();
         Book book = getBook(books, bookInput);
