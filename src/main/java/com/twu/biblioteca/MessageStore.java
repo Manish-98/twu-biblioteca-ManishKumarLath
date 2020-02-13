@@ -51,4 +51,12 @@ public final class MessageStore {
     public static String getLoginRequest() {
         return "Please Log into your profile to access this feature...\n";
     }
+
+    public static String getIdPrompt() {
+        return "Enter Library ID:\n";
+    }
+
+    public static String getPasswordPrompt() {
+        return "Enter Password: \n";
+    }
 }
