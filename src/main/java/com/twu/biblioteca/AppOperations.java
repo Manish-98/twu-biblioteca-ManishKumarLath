@@ -60,6 +60,7 @@ class CheckoutBook implements AppOperations {
 
         if (book != null && !book.isCheckedOut()) {
             book.checkout();
+            currentUser.addBook(book);
             console.output(MessageStore.getSuccessfulCheckoutMessage());
         } else
             console.output(MessageStore.getUnsuccessfulCheckoutMessage());

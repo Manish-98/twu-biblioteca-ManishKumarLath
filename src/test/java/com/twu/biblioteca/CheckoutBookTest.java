@@ -64,4 +64,19 @@ public class CheckoutBookTest {
         assertFalse(bookThree.isCheckedOut());
 
     }
+
+    @Test
+    public void testShouldAddCheckedOutBookToUser() throws IOException {
+        Stream console = mock(Stream.class);
+        Book bookOne = new Book("Book1", "Author1", 2020);
+        Book bookTwo = new Book("Book2", "Author2", 2020);
+        User currentUser = new User("123-1234", "qwerty");
+        Collection<LibraryItems> books = new ArrayList<>(Arrays.asList(bookOne, bookTwo));
+        when(console.input()).thenReturn("Book1");
+        CheckoutBook checkoutBook = new CheckoutBook(console, books, currentUser);
+
+        checkoutBook.execute();
+
+        assertEquals(new ArrayList<LibraryItems>(Collections.singletonList(bookOne)), currentUser.getCheckedOutBooks());
+    }
 }
