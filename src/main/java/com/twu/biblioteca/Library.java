@@ -55,7 +55,7 @@ public class Library {
         } else if (option == 3)
             return new CheckoutBook(console, books, currentUser);
         else if (option == 4)
-            return new ReturnBook(console, books);
+            return new ReturnBook(console, books, currentUser);
         else if (option == 5)
             return new GetListOfMovies(console, movies);
         else if (option == 6)

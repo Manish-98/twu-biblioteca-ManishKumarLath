@@ -108,10 +108,12 @@ class ReturnBook implements AppOperations {
 
     private final Stream console;
     private Collection<LibraryItems> books;
+    private User currentUser;
 
-    public ReturnBook(Stream console, Collection<LibraryItems> books) {
+    public ReturnBook(Stream console, Collection<LibraryItems> books, User currentUser) {
         this.console = console;
         this.books = books;
+        this.currentUser = currentUser;
     }
 
     @Override
@@ -120,8 +122,9 @@ class ReturnBook implements AppOperations {
         String bookInput = console.input();
         Book book = getBook(books, bookInput);
 
-        if (book != null && book.isCheckedOut()) {
+        if (book != null && currentUser.getCheckedOutBooks().contains(book)) {
             book.checkIn();
+            currentUser.getCheckedOutBooks().remove(book);
             console.output(MessageStore.getSuccessfulReturnMessage());
         } else
             console.output(MessageStore.getUnSuccessfulReturnMessage());
